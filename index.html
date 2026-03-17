@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio – Barigov Mouslim</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f14;
+    --surface: #13161d;
+    --surface2: #1a1e28;
+    --accent: #4f8ef7;
+    --accent2: #7c3aed;
+    --text: #e8eaf0;
+    --muted: #6b7280;
+    --border: rgba(79,142,247,0.15);
+    --card: #161b26;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    font-size: 15px;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13,15,20,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3rem; height: 60px;
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1rem; letter-spacing: 0.05em; color: var(--accent); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; transition: color .2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 6rem 3rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 60% at 60% 40%, rgba(79,142,247,0.08) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 80%, rgba(124,58,237,0.06) 0%, transparent 60%);
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 4rem; align-items: center; max-width: 1100px; width: 100%;
+    position: relative; z-index: 1;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(79,142,247,0.12); border: 1px solid rgba(79,142,247,0.3);
+    color: var(--accent); font-size: 0.72rem; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.35rem 0.9rem; border-radius: 50px; margin-bottom: 1.2rem;
+  }
+  .hero h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(2.6rem, 5vw, 4rem); line-height: 1.05;
+    letter-spacing: -0.02em; margin-bottom: 1rem;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-sub {
+    color: var(--muted); font-size: 1rem; font-weight: 300; margin-bottom: 2rem;
+    max-width: 440px;
+  }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2rem; }
+  .badge {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: var(--text); font-size: 0.75rem; font-weight: 500;
+    padding: 0.3rem 0.8rem; border-radius: 6px;
+  }
+  .btn {
+    display: inline-block; background: var(--accent); color: #fff;
+    text-decoration: none; font-weight: 600; font-size: 0.85rem;
+    padding: 0.75rem 1.8rem; border-radius: 8px; transition: opacity .2s;
+  }
+  .btn:hover { opacity: 0.88; }
+  .hero-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2rem;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  }
+  .hero-card-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+  .avatar {
+    width: 56px; height: 56px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; color: #fff;
+    flex-shrink: 0;
+  }
+  .hero-card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; }
+  .hero-card-role { color: var(--muted); font-size: 0.8rem; }
+  .info-row { display: flex; align-items: flex-start; gap: 0.6rem; margin-bottom: 0.8rem; font-size: 0.82rem; }
+  .info-icon { color: var(--accent); margin-top: 2px; font-size: 0.9rem; flex-shrink: 0; }
+  .info-label { color: var(--muted); font-size: 0.75rem; margin-bottom: 0.1rem; font-weight: 500; letter-spacing: 0.04em; text-transform: uppercase; }
+  .info-val { color: var(--text); }
+  .divider { height: 1px; background: var(--border); margin: 1.2rem 0; }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 3rem; max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.4rem); margin-bottom: 0.5rem; letter-spacing: -0.02em;
+  }
+  .section-desc { color: var(--muted); max-width: 520px; margin-bottom: 3rem; font-size: 0.92rem; }
+  .full-line { border: none; border-top: 1px solid var(--border); margin: 0 3rem; }
+
+  /* ── ABOUT / BTS ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.8rem; transition: border-color .2s;
+  }
+  .card:hover { border-color: rgba(79,142,247,0.4); }
+  .card-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+    margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+  .card p, .card ul { color: var(--muted); font-size: 0.87rem; }
+  .card ul { list-style: none; }
+  .card ul li { padding: 0.3rem 0; border-bottom: 1px solid rgba(255,255,255,0.04); }
+  .card ul li:last-child { border-bottom: none; }
+  .card ul li::before { content: "→ "; color: var(--accent); }
+
+  /* ── TIMELINE ── */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    border-radius: 2px;
+  }
+  .tl-item { position: relative; margin-bottom: 2.2rem; }
+  .tl-dot {
+    position: absolute; left: -2.45rem; top: 0.4rem;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--bg); border: 2px solid var(--accent);
+    box-shadow: 0 0 0 4px rgba(79,142,247,0.15);
+  }
+  .tl-date {
+    font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 0.25rem;
+  }
+  .tl-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 0.1rem; }
+  .tl-sub { color: var(--muted); font-size: 0.82rem; margin-bottom: 0.5rem; }
+  .tl-body { color: #9ca3af; font-size: 0.85rem; font-style: italic; }
+
+  /* ── PROJECTS ── */
+  .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.8rem; transition: border-color .25s, transform .25s;
+  }
+  .project-card:hover { border-color: rgba(79,142,247,0.4); transform: translateY(-3px); }
+  .project-tag {
+    display: inline-block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 4px;
+    background: rgba(79,142,247,0.12); color: var(--accent); margin-bottom: 0.8rem;
+  }
+  .project-tag.purple { background: rgba(124,58,237,0.12); color: #a78bfa; }
+  .project-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem; margin-bottom: 0.6rem; }
+  .project-card p { color: var(--muted); font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.6; }
+  .tech-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .tech {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: #9ca3af; font-size: 0.7rem; font-weight: 500;
+    padding: 0.2rem 0.6rem; border-radius: 4px;
+  }
+  .project-link { display: inline-block; margin-top: 1rem; color: var(--accent); font-size: 0.8rem; font-weight: 600; text-decoration: none; }
+  .project-link:hover { text-decoration: underline; }
+
+  /* ── STAGE ── */
+  .stage-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 20px; padding: 2.2rem; margin-bottom: 1.5rem;
+  }
+  .stage-header { display: flex; align-items: flex-start; justify-content: space-between; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem; }
+  .stage-company { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.3rem; }
+  .stage-role { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-top: 0.2rem; }
+  .stage-period {
+    background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.25);
+    color: var(--accent); font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.4rem 0.9rem; border-radius: 50px; white-space: nowrap;
+  }
+  .missions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .mission {
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.2rem; border-left: 3px solid var(--accent);
+  }
+  .mission.purple { border-left-color: #a78bfa; }
+  .mission.green { border-left-color: #34d399; }
+  .mission.orange { border-left-color: #fb923c; }
+  .mission h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem; margin-bottom: 0.4rem; }
+  .mission p { color: var(--muted); font-size: 0.8rem; line-height: 1.55; }
+  .skills-gained { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+  .skill-pill {
+    background: var(--surface2); border: 1px solid var(--border);
+    color: #d1d5db; font-size: 0.72rem; font-weight: 500;
+    padding: 0.25rem 0.7rem; border-radius: 50px;
+  }
+
+  /* ── COMPETENCES ── */
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+  .skill-cat { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 1.5rem; }
+  .skill-cat h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.85rem; margin-bottom: 1rem; letter-spacing: 0.05em; color: var(--accent); text-transform: uppercase; }
+  .skill-item { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.7rem; }
+  .skill-name { font-size: 0.82rem; color: var(--text); }
+  .skill-bar { flex: 1; height: 4px; background: var(--surface2); border-radius: 2px; margin: 0 0.8rem; overflow: hidden; }
+  .skill-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); }
+
+  /* ── VEILLE ── */
+  .veille-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 2rem; }
+  .veille-card h3 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; margin-bottom: 0.8rem; }
+  .veille-meta { display: flex; gap: 1rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+  .veille-tag { background: rgba(124,58,237,0.12); color: #a78bfa; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.7rem; border-radius: 4px; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1rem; }
+  .mini-card { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 1rem; }
+  .mini-card h5 { font-size: 0.78rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.5rem; }
+  .mini-card ul { list-style: none; color: var(--muted); font-size: 0.8rem; }
+  .mini-card ul li { padding: 0.2rem 0; }
+  .mini-card ul li::before { content: "✓ "; color: #34d399; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid var(--border); text-align: center;
+    padding: 2.5rem 3rem; color: var(--muted); font-size: 0.8rem;
+  }
+  footer span { color: var(--accent); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-content > * { animation: fadeUp 0.6s ease both; }
+  .hero-content > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero-content > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero-content > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero-content > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
+  .hero-card { animation: fadeUp 0.7s ease 0.3s both; }
+
+  @media (max-width: 768px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero-grid, .about-grid, .projects-grid, .missions-grid, .skills-grid, .two-col { grid-template-columns: 1fr; }
+    section { padding: 3.5rem 1.5rem; }
+    .full-line { margin: 0 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BM / Portfolio</div>
+  <ul class="nav-links">
+    <li><a href="#bts">BTS SIO</a></li>
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#stage">Stage</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#veille">Veille</a></li>
+    <li><a href="#cv">CV</a></li>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid">
+    <div class="hero-content">
+      <div class="hero-tag">Portfolio 2025–2026</div>
+      <h1>Barigov<br><span>Mouslim</span></h1>
+      <p class="hero-sub">Étudiant en BTS SIO option SISR — passionné d'informatique, de systèmes et de réseaux.</p>
+      <div class="hero-badges">
+        <span class="badge">BTS SIO SISR</span>
+        <span class="badge">CFA-INSTA · Lycée Louis-Armand</span>
+      </div>
+      <a href="mailto:mouslimbarigov78@gmail.com" class="btn">Me contacter</a>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-header">
+        <div class="avatar">BM</div>
+        <div>
+          <div class="hero-card-name">Barigov Mouslim</div>
+          <div class="hero-card-role">Étudiant BTS SIO — Option SISR</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">✉</div>
+        <div>
+          <div class="info-label">Email</div>
+          <div class="info-val">mouslimbarigov78@gmail.com</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">📞</div>
+        <div>
+          <div class="info-label">Téléphone</div>
+          <div class="info-val">07 49 66 28 85</div>
+        </div>
+      </div>
+      <div class="info-row">
+        <div class="info-icon">📍</div>
+        <div>
+          <div class="info-label">Localisation</div>
+          <div class="info-val">Les Mureaux (78) — Permis B + véhicule</div>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="info-row">
+        <div class="info-icon">🌐</div>
+        <div>
+          <div class="info-label">Langues</div>
+          <div class="info-val">Français · Anglais professionnel · Espagnol débutant</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="full-line">
+
+<!-- BTS SIO -->
+<section id="bts">
+  <div class="section-label">Formation</div>
+  <h2 class="section-title">Qu'est-ce que le BTS SIO ?</h2>
+  <p class="section-desc">Le Brevet de Technicien Supérieur aux Services Informatiques aux Organisations forme en deux ans aux métiers de l'informatique — réseau ou développement — avec une porte directe vers l'emploi ou la poursuite d'études.</p>
+  <div class="about-grid">
+    <div class="card">
+      <div class="card-title"><span class="dot"></span> Option SLAM</div>
+      <p style="margin-bottom:1rem;">Spécialité orientée développement logiciel et applications métiers : conception, développement et intégration de solutions applicatives au sein des organisations.</p>
+      <ul>
+        <li>Développeur d'applications informatiques</li>
+        <li>Analyste programmeur</li>
+        <li>Responsable des services applicatifs</li>
+        <li>Technicien d'études informatiques</li>
+        <li>Analyste d'applications ou d'études</li>
+      </ul>
+    </div>
+    <div class="card" style="border-color: rgba(79,142,247,0.35);">
+      <div class="card-title"><span class="dot" style="background:var(--accent2)"></span> Option SISR <span style="font-size:0.65rem;color:var(--accent);background:rgba(79,142,247,0.1);padding:0.15rem 0.5rem;border-radius:4px;font-weight:600;">Ma filière</span></div>
+      <p style="margin-bottom:1rem;">Spécialité orientée infrastructure, systèmes et réseaux. Elle forme des professionnels capables d'administrer, sécuriser et maintenir le réseau d'une organisation.</p>
+      <ul>
+        <li>Administrateur systèmes et réseaux</li>
+        <li>Technicien d'infrastructure</li>
+        <li>Support systèmes et réseaux</li>
+        <li>Pilote d'exploitation</li>
+        <li>Technicien micro et réseaux</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:1.5rem;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;">La filière SISR m'a permis d'acquérir des compétences concrètes en administration réseau, virtualisation et sécurité des systèmes, directement applicables en entreprise. J'ai réalisé ma <strong style="color:var(--text);">1ère année au CFA-INSTA (Paris)</strong> en option SLAM, puis ma <strong style="color:var(--text);">2ème année au Lycée Louis-Armand</strong> en option SISR.</p>
+  </div>
+</section>
+
+<hr class="full-line">
+
+<!-- PARCOURS SCOLAIRE -->
+<section id="parcours">
+  <div class="section-label">Historique</div>
+  <h2 class="section-title">Parcours scolaire</h2>
+  <p class="section-desc">Un parcours atypique et enrichissant, marqué par une curiosité constante et une volonté de trouver la voie qui me correspond vraiment.</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2015 – 2019</div>
+      <div class="tl-title">Brevet des Collèges — Collège Paul Verlaine</div>
+      <div class="tl-sub">Mention Assez Bien</div>
+      <div class="tl-body">Stage de 3ème en boulangerie locale — première expérience du monde professionnel.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2019 – 2022</div>
+      <div class="tl-title">Baccalauréat Général</div>
+      <div class="tl-sub">Mention Assez Bien · Spécialités : Mathématiques, NSI, Physique-Chimie</div>
+      <div class="tl-body">Découverte de la NSI (Numérique et Sciences Informatiques), qui a nourri mon intérêt pour l'informatique.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2022 – 2024</div>
+      <div class="tl-title">Licence PCST — Université CY Cergy-Pontoise</div>
+      <div class="tl-sub">Mathématiques / Physique-Chimie</div>
+      <div class="tl-body">Deux années en licence scientifique qui m'ont permis d'approfondir ma rigueur analytique, avant de choisir de me réorienter vers l'informatique appliquée.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2024 – 2025</div>
+      <div class="tl-title">Licence Sciences Formelles — Sorbonne Université</div>
+      <div class="tl-sub">Un semestre</div>
+      <div class="tl-body">Passage en sciences formelles à Sorbonne, suivi d'une décision de réorientation vers le BTS SIO pour acquérir des compétences pratiques et une expérience terrain.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color: var(--accent2); box-shadow: 0 0 0 4px rgba(124,58,237,0.2);"></div>
+      <div class="tl-date" style="color:var(--accent2);">2024 – 2026</div>
+      <div class="tl-title">BTS SIO — Option SISR</div>
+      <div class="tl-sub">1ère année : Option SLAM au CFA-INSTA (Paris) · 2ème année : Option SISR au Lycée Louis-Armand</div>
+      <div class="tl-body">Une formation hybride combinant une première année orientée développement et une seconde année centrée sur les infrastructures réseaux et systèmes, avec stages en entreprise.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-line">
+
+<!-- PROJETS -->
+<section id="projets">
+  <div class="section-label">Réalisations</div>
+  <h2 class="section-title">Projets</h2>
+  <p class="section-desc">Des projets concrets menés en formation et en autonomie, couvrant le développement web et l'administration système.</p>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-tag">Projet personnel</div>
+      <h3>Site vitrine — BBM Driver</h3>
+      <p>Création d'un site web complet pour l'activité de chauffeur VTC de mon père, afin d'accroître sa visibilité en ligne et développer sa clientèle.</p>
+      <div class="tech-stack">
+        <span class="tech">HTML</span>
+        <span class="tech">CSS</span>
+        <span class="tech">JavaScript</span>
+        <span class="tech">WordPress</span>
+      </div>
+      <a href="https://www.bbm-driver.com/" class="project-link" target="_blank">→ Voir le site : bbm-driver.com</a>
+    </div>
+    <div class="project-card">
+      <div class="project-tag purple">Projet école</div>
+      <h3>Application Restaurant</h3>
+      <p>Développement d'une application web de gestion de restaurant permettant la réservation de tables, la consultation du menu, la commande en ligne et la gestion des utilisateurs avec authentification.</p>
+      <div class="tech-stack">
+        <span class="tech">PHP</span>
+        <span class="tech">MySQL</span>
+        <span class="tech">HTML/CSS</span>
+        <span class="tech">JavaScript</span>
+      </div>
+    </div>
+    <div class="project-card" style="grid-column: 1 / -1;">
+      <div class="project-tag">Projet BTS SISR</div>
+      <h3>Infrastructure Serveur Virtualisée</h3>
+      <p>Conception et déploiement d'une infrastructure réseau complète en environnement virtualisé, reproduisant l'architecture d'un réseau d'entreprise avec redondance pour garantir la continuité de service.</p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:0.8rem; margin: 1rem 0;">
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-size:0.8rem;">
+          <div style="color:var(--accent);font-weight:700;margin-bottom:0.3rem;">Active Directory</div>
+          <div style="color:var(--muted);">Gestion du domaine, utilisateurs & groupes</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-size:0.8rem;">
+          <div style="color:var(--accent);font-weight:700;margin-bottom:0.3rem;">DNS & DHCP</div>
+          <div style="color:var(--muted);">Résolution de noms & attribution automatique IP</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-size:0.8rem;">
+          <div style="color:var(--accent);font-weight:700;margin-bottom:0.3rem;">Droits & Quotas</div>
+          <div style="color:var(--muted);">Permissions, dossiers partagés, quotas de stockage</div>
+        </div>
+        <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.8rem;font-size:0.8rem;">
+          <div style="color:var(--accent);font-weight:700;margin-bottom:0.3rem;">Redondance</div>
+          <div style="color:var(--muted);">Serveur de secours en cas de panne du principal</div>
+        </div>
+      </div>
+      <div class="tech-stack">
+        <span class="tech">VMware</span>
+        <span class="tech">Windows Server</span>
+        <span class="tech">Active Directory</span>
+        <span class="tech">DNS</span>
+        <span class="tech">DHCP</span>
+        <span class="tech">XCP-ng</span>
+        <span class="tech">XOA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="full-line">
+
+<!-- STAGE -->
+<section id="stage">
+  <div class="section-label">Expérience terrain</div>
+  <h2 class="section-title">Stage de 2ème année</h2>
+  <p class="section-desc">Stage réalisé dans un entrepôt de tri de colis, en tant que technicien informatique chargé de la maintenance et de l'administration du parc réseau et informatique du site.</p>
+
+  <div class="stage-card">
+    <div class="stage-header">
+      <div>
+        <div class="stage-company">Entrepôt de tri de colis</div>
+        <div class="stage-role">Technicien Informatique / Support Systèmes & Réseaux</div>
+      </div>
+      <div class="stage-period">2ème Année BTS SIO · 2025</div>
+    </div>
+
+    <div class="missions-grid">
+      <div class="mission">
+        <h4>🖥️ Inventaire & gestion du parc informatique</h4>
+        <p>Recensement de l'ensemble des équipements du site (PC fixes, terminaux de scan, imprimantes, switch). Mise à jour de la base de données de gestion du parc (GLPI) et étiquetage des machines.</p>
+      </div>
+      <div class="mission purple">
+        <h4>🔌 Configuration et déploiement de postes</h4>
+        <p>Installation et configuration de nouveaux postes de travail sous Windows 10 Pro, intégration au domaine Active Directory, déploiement des logiciels métier via GPO et scripts PowerShell.</p>
+      </div>
+      <div class="mission green">
+        <h4>📡 Administration du réseau local</h4>
+        <p>Diagnostic et résolution de pannes réseau (câblage, switch, borne Wi-Fi). Vérification de la configuration des VLANs, contrôle des attributions DHCP et résolution des conflits d'adresses IP.</p>
+      </div>
+      <div class="mission orange">
+        <h4>🛡️ Maintenance préventive et sécurité</h4>
+        <p>Application des mises à jour de sécurité sur les postes et serveurs. Vérification des antivirus, des sauvegardes automatiques et des droits d'accès utilisateurs dans l'Active Directory.</p>
+      </div>
+      <div class="mission">
+        <h4>📋 Support utilisateurs (helpdesk niveau 1 & 2)</h4>
+        <p>Assistance technique aux opérateurs et chefs d'équipe : réinitialisation de mots de passe, résolution de problèmes d'impression, dépannage des terminaux de scan de colis.</p>
+      </div>
+      <div class="mission purple">
+        <h4>🖨️ Gestion des terminaux de scan & imprimantes</h4>
+        <p>Configuration et dépannage des scanners code-barres et des imprimantes d'étiquettes industrielles (Zebra). Mise à jour des firmwares et vérification de la connectivité réseau des périphériques.</p>
+      </div>
+      <div class="mission green">
+        <h4>🔧 Installation d'un serveur de fichiers</h4>
+        <p>Participation à la mise en place d'un serveur de fichiers partagés pour les équipes administratives : création des dossiers, attribution des permissions NTFS selon les profils utilisateurs, tests d'accès.</p>
+      </div>
+      <div class="mission orange">
+        <h4>📊 Documentation technique</h4>
+        <p>Rédaction de procédures techniques (schéma réseau du site, guide d'intégration des postes au domaine, fiche de résolution des incidents courants) pour faciliter les interventions futures.</p>
+      </div>
+    </div>
+
+    <div class="skills-gained">
+      <span style="font-size:0.75rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-right:0.5rem;align-self:center;">Compétences acquises :</span>
+      <span class="skill-pill">Active Directory</span>
+      <span class="skill-pill">Windows Server</span>
+      <span class="skill-pill">PowerShell</span>
+      <span class="skill-pill">GLPI</span>
+      <span class="skill-pill">DHCP / DNS</span>
+      <span class="skill-pill">VLAN</span>
+      <span class="skill-pill">Support N1/N2</span>
+      <span class="skill-pill">GPO</span>
+      <span class="skill-pill">Zebra / Scan industriel</span>
+      <span class="skill-pill">Documentation technique</span>
+    </div>
+  </div>
+</section>
+
+<hr class="full-line">
+
+<!-- COMPETENCES -->
+<section id="competences">
+  <div class="section-label">Savoir-faire</div>
+  <h2 class="section-title">Compétences techniques</h2>
+  <p class="section-desc">Acquises en formation, en autodidacte et en entreprise — entre développement logiciel, administration système et infrastructure réseau.</p>
+  <div class="skills-grid">
+    <div class="skill-cat">
+      <h4>Développement web</h4>
+      <div class="skill-item"><span class="skill-name">HTML / CSS</span><div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">JavaScript</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">PHP</span><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">MySQL</span><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></div>
+    </div>
+    <div class="skill-cat">
+      <h4>Programmation</h4>
+      <div class="skill-item"><span class="skill-name">Python</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">C</span><div class="skill-bar"><div class="skill-fill" style="width:45%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">PowerShell</span><div class="skill-bar"><div class="skill-fill" style="width:50%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Bash</span><div class="skill-bar"><div class="skill-fill" style="width:40%"></div></div></div>
+    </div>
+    <div class="skill-cat">
+      <h4>Systèmes & Réseaux</h4>
+      <div class="skill-item"><span class="skill-name">Windows Server</span><div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Active Directory</span><div class="skill-bar"><div class="skill-fill" style="width:65%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">VMware / XCP-ng</span><div class="skill-bar"><div class="skill-fill" style="width:60%"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Raspberry Pi</span><div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div></div>
+    </div>
+  </div>
+  <div style="margin-top:1rem;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;">
+    <h4 style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.85rem;color:var(--accent);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:1rem;">Outils & environnements</h4>
+    <div style="display:flex;flex-wrap:wrap;gap:0.6rem;">
+      <span class="badge">VMware Workstation</span>
+      <span class="badge">XCP-ng</span>
+      <span class="badge">Xen Orchestra (XOA)</span>
+      <span class="badge">Raspberry Pi</span>
+      <span class="badge">GanttProject</span>
+      <span class="badge">GLPI</span>
+      <span class="badge">WordPress</span>
+      <span class="badge">Git</span>
+      <span class="badge">VS Code</span>
+    </div>
+  </div>
+</section>
+
+<hr class="full-line">
+
+<!-- VEILLE TECHNOLOGIQUE -->
+<section id="veille">
+  <div class="section-label">Veille</div>
+  <h2 class="section-title">Veille technologique</h2>
+  <p class="section-desc">Un suivi régulier des évolutions du secteur, centré sur les outils et technologies du développement web et de la gestion de contenu.</p>
+  <div class="veille-card">
+    <div class="veille-meta">
+      <div class="veille-tag">Développement Web</div>
+      <div class="veille-tag" style="background:rgba(79,142,247,0.1);color:var(--accent);">Gestion de contenu</div>
+    </div>
+    <h3>Qu'est-ce qu'un CMS ? (Content Management System)</h3>
+    <p style="color:var(--muted);font-size:0.88rem;line-height:1.7;margin-bottom:1.2rem;">
+      Un CMS est un outil permettant de créer et gérer un site web sans coder entièrement l'application. Il offre une interface d'administration simple pour gérer les contenus (textes, images, pages) et s'appuie sur des thèmes et extensions pour personnaliser le résultat. J'ai choisi ce sujet car les CMS sont omniprésents en entreprise, et j'ai eu l'occasion d'utiliser WordPress pour le site de mon père, ce qui m'a permis de comprendre concrètement la structure d'un site web dynamique.
+    </p>
+    <div class="two-col">
+      <div class="mini-card">
+        <h5>✅ Avantages</h5>
+        <ul>
+          <li>Accessible sans être développeur</li>
+          <li>Déploiement rapide</li>
+          <li>Personnalisable (thèmes, plugins)</li>
+          <li>Grande communauté / documentation</li>
+        </ul>
+      </div>
+      <div class="mini-card">
+        <h5 style="color:#f87171;">⚠ Inconvénients</h5>
+        <ul style="">
+          <li style="color:var(--muted);">Moins performant qu'un site 100% codé</li>
+          <li style="color:var(--muted);">Sécurité à surveiller (surtout WordPress)</li>
+          <li style="color:var(--muted);">Dépendance aux plugins tiers</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:1.2rem;padding-top:1.2rem;border-top:1px solid var(--border);">
+      <div style="font-size:0.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.8rem;">Exemples de CMS</div>
+      <div style="display:flex;flex-wrap:wrap;gap:0.6rem;">
+        <span class="badge">WordPress (2003) — Blogs & vitrines</span>
+        <span class="badge">PrestaShop (2008) — E-commerce</span>
+        <span class="badge">Joomla (2006) — Sites complexes</span>
+        <span class="badge">Drupal (2006) — Applications métiers</span>
+      </div>
+    </div>
+    <div style="margin-top:1.2rem;font-size:0.78rem;color:var(--muted);">
+      Sources : <a href="https://wordpress.org" target="_blank" style="color:var(--accent);">wordpress.org</a> · <a href="https://grafikart.fr" target="_blank" style="color:var(--accent);">grafikart.fr</a> · <a href="https://openclassrooms.com" target="_blank" style="color:var(--accent);">openclassrooms.com</a>
+    </div>
+  </div>
+</section>
+
+<!-- CV -->
+<hr class="full-line">
+<section id="cv">
+  <div class="section-label">Curriculum Vitæ</div>
+  <h2 class="section-title">Mon CV</h2>
+  <p class="section-desc">Retrouvez l'ensemble de mon parcours, mes compétences et mes expériences en un coup d'œil.</p>
+
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;max-width:900px;">
+
+    <!-- CV Header -->
+    <div style="background:linear-gradient(135deg,#1a1e28 0%,#0d111b 100%);border-bottom:1px solid var(--border);padding:2.5rem 2.5rem 2rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap;">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#fff;flex-shrink:0;">BM</div>
+      <div>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;letter-spacing:-0.02em;">BARIGOV MOUSLIM</div>
+        <div style="color:var(--accent);font-weight:600;font-size:0.95rem;margin-top:0.2rem;">Étudiant BTS SIO — Option SISR</div>
+        <div style="display:flex;flex-wrap:wrap;gap:1.5rem;margin-top:0.8rem;font-size:0.8rem;color:var(--muted);">
+          <span>✉ mouslimbarigov78@gmail.com</span>
+          <span>📞 07 49 66 28 85</span>
+          <span>📍 Les Mureaux (78)</span>
+          <span>🚗 Permis B + véhicule</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1.7fr;gap:0;">
+
+      <!-- LEFT COLUMN -->
+      <div style="background:rgba(255,255,255,0.02);border-right:1px solid var(--border);padding:2rem;">
+
+        <!-- Formation -->
+        <div style="margin-bottom:2rem;">
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Formation</div>
+          <div style="margin-bottom:1.2rem;">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;">BTS SIO — Option SISR</div>
+            <div style="color:var(--accent);font-size:0.78rem;margin:0.1rem 0;">CFA-INSTA Paris · Lycée Louis-Armand</div>
+            <div style="color:var(--muted);font-size:0.75rem;">2024 – 2026</div>
+          </div>
+          <div style="margin-bottom:1.2rem;">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;">Licence Sciences Formelles</div>
+            <div style="color:var(--accent);font-size:0.78rem;margin:0.1rem 0;">Sorbonne Université</div>
+            <div style="color:var(--muted);font-size:0.75rem;">2024 – 2025</div>
+          </div>
+          <div style="margin-bottom:1.2rem;">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;">Licence PCST (Maths / Physique)</div>
+            <div style="color:var(--accent);font-size:0.78rem;margin:0.1rem 0;">CY Cergy-Pontoise</div>
+            <div style="color:var(--muted);font-size:0.75rem;">2022 – 2024</div>
+          </div>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.88rem;">Baccalauréat Général</div>
+            <div style="color:var(--accent);font-size:0.78rem;margin:0.1rem 0;">Mention Assez Bien · Maths, NSI, Physique</div>
+            <div style="color:var(--muted);font-size:0.75rem;">2019 – 2022</div>
+          </div>
+        </div>
+
+        <!-- Compétences -->
+        <div style="margin-bottom:2rem;">
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Compétences</div>
+          <div style="font-size:0.75rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Langages & Dev</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:1rem;">
+            <span style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">HTML/CSS</span>
+            <span style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">JavaScript</span>
+            <span style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">PHP</span>
+            <span style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">Python</span>
+            <span style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">MySQL</span>
+            <span style="background:rgba(79,142,247,0.1);border:1px solid rgba(79,142,247,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">C</span>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Systèmes & Réseaux</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.3rem;margin-bottom:1rem;">
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">Windows Server</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">Active Directory</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">DNS / DHCP</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">VMware</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">XCP-ng</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">PowerShell</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">VLAN</span>
+            <span style="background:rgba(124,58,237,0.1);border:1px solid rgba(124,58,237,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">Raspberry Pi</span>
+          </div>
+          <div style="font-size:0.75rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Outils</div>
+          <div style="display:flex;flex-wrap:wrap;gap:0.3rem;">
+            <span style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">GLPI</span>
+            <span style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">GanttProject</span>
+            <span style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">WordPress</span>
+            <span style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">Git</span>
+            <span style="background:rgba(52,211,153,0.08);border:1px solid rgba(52,211,153,0.2);color:var(--text);font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">VS Code</span>
+          </div>
+        </div>
+
+        <!-- Langues -->
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Langues</div>
+          <div style="margin-bottom:0.6rem;font-size:0.83rem;">🇫🇷 <strong>Français</strong> — Natif</div>
+          <div style="margin-bottom:0.6rem;font-size:0.83rem;">🇬🇧 <strong>Anglais</strong> — Niveau professionnel</div>
+          <div style="font-size:0.83rem;">🇪🇸 <strong>Espagnol</strong> — Niveau débutant</div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div style="padding:2rem;">
+
+        <!-- Profil -->
+        <div style="margin-bottom:2rem;">
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Profil</div>
+          <p style="color:#9ca3af;font-size:0.85rem;line-height:1.75;">Passionné par l'informatique et les systèmes réseaux, j'aime résoudre des problèmes techniques et mettre en place des solutions concrètes. En BTS SIO, j'ai approfondi mes compétences en administration système, virtualisation et gestion de réseaux. Motivé par l'apprentissage continu et la découverte de nouvelles technologies, je cherche à mettre en pratique mes connaissances au sein d'une équipe technique.</p>
+        </div>
+
+        <!-- Expériences -->
+        <div style="margin-bottom:2rem;">
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Expériences</div>
+
+          <div style="margin-bottom:1.5rem;padding-left:1rem;border-left:2px solid var(--accent);">
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.3rem;">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;">Stage — Technicien Systèmes & Réseaux</div>
+              <div style="color:var(--muted);font-size:0.75rem;">2025</div>
+            </div>
+            <div style="color:var(--accent);font-size:0.78rem;margin-bottom:0.5rem;">Entrepôt de tri de colis</div>
+            <ul style="list-style:none;color:#9ca3af;font-size:0.8rem;line-height:1.7;">
+              <li>→ Inventaire et gestion du parc informatique (GLPI)</li>
+              <li>→ Déploiement de postes et intégration au domaine (GPO)</li>
+              <li>→ Administration réseau : VLAN, DHCP, résolution de pannes</li>
+              <li>→ Support utilisateurs N1/N2, dépannage des terminaux de scan</li>
+              <li>→ Installation d'un serveur de fichiers partagés (permissions NTFS)</li>
+              <li>→ Rédaction de documentation technique</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom:1.5rem;padding-left:1rem;border-left:2px solid #a78bfa;">
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.3rem;">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;">VTC (Auto-entrepreneur)</div>
+              <div style="color:var(--muted);font-size:0.75rem;">2023 – 2024</div>
+            </div>
+            <ul style="list-style:none;color:#9ca3af;font-size:0.8rem;line-height:1.7;">
+              <li>→ Gestion des trajets et optimisation des itinéraires via GPS</li>
+              <li>→ Relation client et respect des horaires de réservation</li>
+              <li>→ Adaptabilité face aux imprévus de circulation</li>
+            </ul>
+          </div>
+
+          <div style="margin-bottom:1.5rem;padding-left:1rem;border-left:2px solid #34d399;">
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.3rem;">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;">Poissonnier — Carrefour</div>
+              <div style="color:var(--muted);font-size:0.75rem;">2023 – 2024</div>
+            </div>
+            <ul style="list-style:none;color:#9ca3af;font-size:0.8rem;line-height:1.7;">
+              <li>→ Gestion de la relation client et conseil</li>
+              <li>→ Travail en équipe, respect des normes d'hygiène</li>
+            </ul>
+          </div>
+
+          <div style="padding-left:1rem;border-left:2px solid #fb923c;">
+            <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:0.3rem;margin-bottom:0.3rem;">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.9rem;">Manutentionnaire — Khalige</div>
+              <div style="color:var(--muted);font-size:0.75rem;">2023 – 2024</div>
+            </div>
+            <ul style="list-style:none;color:#9ca3af;font-size:0.8rem;line-height:1.7;">
+              <li>→ Gestion des stocks et logistique de livraison</li>
+              <li>→ Rigueur, organisation et respect des délais</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Projets -->
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Projets</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.9rem;">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;margin-bottom:0.3rem;">Site BBM Driver</div>
+              <div style="color:var(--muted);font-size:0.76rem;">Site vitrine WordPress pour l'activité VTC de mon père — bbm-driver.com</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.9rem;">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;margin-bottom:0.3rem;">App Restaurant</div>
+              <div style="color:var(--muted);font-size:0.76rem;">Application PHP/MySQL de réservation de tables et commande en ligne</div>
+            </div>
+            <div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:0.9rem;grid-column:1/-1;">
+              <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:0.82rem;margin-bottom:0.3rem;">Infrastructure Serveur Virtualisée</div>
+              <div style="color:var(--muted);font-size:0.76rem;">Déploiement Active Directory, DNS, DHCP, gestion des droits et redondance sous VMware / XCP-ng</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Portfolio de <span>Barigov Mouslim</span> — BTS SIO Option SISR · CFA-INSTA Paris · Lycée Louis-Armand · 2025–2026</p>
+  <p style="margin-top:0.4rem;">mouslimbarigov78@gmail.com · 07 49 66 28 85</p>
+</footer>
+
+</body>
+</html>
