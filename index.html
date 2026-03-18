@@ -243,6 +243,106 @@
   .mini-card ul li { padding: 0.2rem 0; }
   .mini-card ul li::before { content: "✓ "; color: #34d399; }
 
+  /* ── TABLEAU DE SYNTHÈSE ── */
+  .synthese-section {
+    padding: 5rem 3rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .synthese-meta {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    margin-bottom: 2.5rem;
+    padding: 1.4rem 1.8rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .synthese-meta-item { flex: 1; min-width: 180px; }
+  .synthese-meta-label { color: var(--muted); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 4px; }
+  .synthese-meta-val { color: var(--text); font-weight: 600; font-size: 0.9rem; }
+  .synthese-meta-val.accent { color: var(--accent); }
+
+  .synthese-scroll { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+  .synthese-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.78rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    min-width: 860px;
+  }
+  .synthese-table thead tr {
+    background: rgba(79,142,247,0.07);
+    border-bottom: 1px solid rgba(79,142,247,0.2);
+  }
+  .synthese-table th {
+    padding: 12px 14px;
+    text-align: center;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .synthese-table th:first-child { text-align: left; width: 22%; }
+  .synthese-table th:nth-child(2) { width: 11%; }
+
+  .synthese-table tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); transition: background 0.15s; }
+  .synthese-table tbody tr:hover { background: rgba(79,142,247,0.04); }
+
+  .synthese-table td {
+    padding: 11px 14px;
+    vertical-align: middle;
+    text-align: center;
+  }
+  .synthese-table td:first-child { text-align: left; }
+
+  .cat-row td {
+    background: rgba(255,255,255,0.03);
+    color: var(--accent);
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 14px;
+    border-top: 1px solid rgba(79,142,247,0.15);
+  }
+
+  .realisation-name { font-weight: 600; color: var(--text); margin-bottom: 2px; font-size: 0.8rem; }
+  .realisation-desc { color: var(--muted); font-size: 0.72rem; line-height: 1.4; }
+  .periode-badge {
+    display: inline-block;
+    background: rgba(79,142,247,0.08);
+    border: 1px solid rgba(79,142,247,0.15);
+    color: #9ca3af;
+    font-size: 0.65rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 50px;
+    white-space: nowrap;
+  }
+  .check-dot {
+    display: inline-block;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    position: relative;
+  }
+  .check-dot::after {
+    content: '✓';
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .empty-cell { color: rgba(255,255,255,0.08); font-size: 1rem; }
+
   /* ── FOOTER ── */
   footer {
     border-top: 1px solid var(--border); text-align: center;
@@ -268,6 +368,7 @@
     .nav-links { display: none; }
     .hero-grid, .about-grid, .projects-grid, .missions-grid, .skills-grid, .two-col { grid-template-columns: 1fr; }
     section { padding: 3.5rem 1.5rem; }
+    .synthese-section { padding: 3.5rem 1.5rem; }
     .full-line { margin: 0 1.5rem; }
   }
 </style>
@@ -285,6 +386,8 @@
     <li><a href="#competences">Compétences</a></li>
     <li><a href="#veille">Veille</a></li>
     <li><a href="#cv">CV</a></li>
+    <li><a href="#synthese">Tableau</a></li>
+  </ul>
 </nav>
 
 <!-- HERO -->
@@ -631,7 +734,7 @@
       </div>
       <div class="mini-card">
         <h5 style="color:#f87171;">⚠ Inconvénients</h5>
-        <ul style="">
+        <ul>
           <li style="color:var(--muted);">Moins performant qu'un site 100% codé</li>
           <li style="color:var(--muted);">Sécurité à surveiller (surtout WordPress)</li>
           <li style="color:var(--muted);">Dépendance aux plugins tiers</li>
@@ -682,7 +785,6 @@
       <!-- LEFT COLUMN -->
       <div style="background:rgba(255,255,255,0.02);border-right:1px solid var(--border);padding:2rem;">
 
-        <!-- Formation -->
         <div style="margin-bottom:2rem;">
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Formation</div>
           <div style="margin-bottom:1.2rem;">
@@ -707,7 +809,6 @@
           </div>
         </div>
 
-        <!-- Compétences -->
         <div style="margin-bottom:2rem;">
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Compétences</div>
           <div style="font-size:0.75rem;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Langages & Dev</div>
@@ -740,7 +841,6 @@
           </div>
         </div>
 
-        <!-- Langues -->
         <div>
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Langues</div>
           <div style="margin-bottom:0.6rem;font-size:0.83rem;">🇫🇷 <strong>Français</strong> — Natif</div>
@@ -753,13 +853,11 @@
       <!-- RIGHT COLUMN -->
       <div style="padding:2rem;">
 
-        <!-- Profil -->
         <div style="margin-bottom:2rem;">
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Profil</div>
           <p style="color:#9ca3af;font-size:0.85rem;line-height:1.75;">Passionné par l'informatique et les systèmes réseaux, j'aime résoudre des problèmes techniques et mettre en place des solutions concrètes. En BTS SIO, j'ai approfondi mes compétences en administration système, virtualisation et gestion de réseaux. Motivé par l'apprentissage continu et la découverte de nouvelles technologies, je cherche à mettre en pratique mes connaissances au sein d'une équipe technique.</p>
         </div>
 
-        <!-- Expériences -->
         <div style="margin-bottom:2rem;">
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Expériences</div>
 
@@ -814,7 +912,6 @@
           </div>
         </div>
 
-        <!-- Projets -->
         <div>
           <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:0.75rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);">Projets</div>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.8rem;">
@@ -837,6 +934,162 @@
     </div>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- TABLEAU DE SYNTHÈSE DES RÉALISATIONS PROFESSIONNELLES -->
+<!-- ═══════════════════════════════════════════════════ -->
+<hr class="full-line">
+<div class="synthese-section" id="synthese">
+
+  <div class="section-label">BTS SIO — Session 2026</div>
+  <h2 class="section-title">Tableau de synthèse des réalisations</h2>
+  <p class="section-desc">Récapitulatif des compétences mises en œuvre à travers les réalisations en formation et en milieu professionnel.</p>
+
+  <!-- Infos candidat -->
+  <div class="synthese-meta">
+    <div class="synthese-meta-item">
+      <div class="synthese-meta-label">Nom et prénom</div>
+      <div class="synthese-meta-val">Barigov Mouslim</div>
+    </div>
+    <div class="synthese-meta-item">
+      <div class="synthese-meta-label">N° candidat</div>
+      <div class="synthese-meta-val">153037305JA</div>
+    </div>
+    <div class="synthese-meta-item">
+      <div class="synthese-meta-label">Centre de formation</div>
+      <div class="synthese-meta-val">Lycée Louis-Armand</div>
+    </div>
+    <div class="synthese-meta-item">
+      <div class="synthese-meta-label">Option</div>
+      <div class="synthese-meta-val accent">☒ SISR &nbsp;☐ SLAM</div>
+    </div>
+    <div class="synthese-meta-item">
+      <div class="synthese-meta-label">Portfolio</div>
+      <div class="synthese-meta-val"><a href="https://portfolio-barigov-mouslim.fr/" target="_blank" style="color:var(--accent);text-decoration:none;">portfolio-barigov-mouslim.fr</a></div>
+    </div>
+  </div>
+
+  <!-- Tableau -->
+  <div class="synthese-scroll">
+    <table class="synthese-table">
+      <thead>
+        <tr>
+          <th style="text-align:left;">Réalisation professionnelle</th>
+          <th>Période</th>
+          <th>Gérer le patrimoine informatique</th>
+          <th>Répondre aux incidents &amp; demandes</th>
+          <th>Travailler en mode projet</th>
+          <th>Mettre à disposition un service informatique</th>
+          <th>Organiser son développement professionnel</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- FORMATION -->
+        <tr class="cat-row">
+          <td colspan="7">📚 Réalisations en cours de formation</td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="realisation-name">Infrastructure serveur virtualisée</div>
+            <div class="realisation-desc">Déploiement d'un Active Directory, DNS, DHCP, droits et quotas sur environnement VMware/XCP-ng</div>
+          </td>
+          <td><span class="periode-badge">09/2025 → 02/2026</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="realisation-name">Site vitrine BBM Driver</div>
+            <div class="realisation-desc">Création d'un site web complet (HTML, CSS, JS, WordPress) pour une activité de chauffeur VTC</div>
+          </td>
+          <td><span class="periode-badge">04/01/25 → 12/05/25</span></td>
+          <td><span class="empty-cell">—</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+          <td><span class="check-dot"></span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="realisation-name">Application web Restaurant</div>
+            <div class="realisation-desc">Gestion de réservations, menu, commandes en ligne et authentification (PHP, MySQL, HTML/CSS, JS)</div>
+          </td>
+          <td><span class="periode-badge">04/01/25 → 12/05/25</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+        </tr>
+
+        <!-- STAGE 2ÈME ANNÉE -->
+        <tr class="cat-row">
+          <td colspan="7">🏢 Réalisations en milieu professionnel — Stage 2ème année (Entrepôt de tri de colis)</td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="realisation-name">Inventaire et gestion du parc informatique</div>
+            <div class="realisation-desc">Recensement des équipements, mise à jour GLPI, étiquetage et suivi des actifs du site</div>
+          </td>
+          <td><span class="periode-badge">15/12/25 → 06/02/26</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+          <td><span class="empty-cell">—</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="realisation-name">Configuration et déploiement de postes</div>
+            <div class="realisation-desc">Installation Windows 10 Pro, intégration au domaine Active Directory, déploiement des logiciels via GPO et scripts PowerShell</div>
+          </td>
+          <td><span class="periode-badge">15/12/25 → 06/02/26</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+        </tr>
+
+        <tr>
+          <td>
+            <div class="realisation-name">Support utilisateurs (helpdesk N1/N2) et administration réseau</div>
+            <div class="realisation-desc">Diagnostic pannes réseau, vérification VLANs et DHCP, réinitialisation mots de passe, dépannage terminaux de scan</div>
+          </td>
+          <td><span class="periode-badge">15/12/25 → 06/02/26</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="empty-cell">—</span></td>
+          <td><span class="check-dot"></span></td>
+          <td><span class="check-dot"></span></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Légende -->
+  <div style="margin-top:1.2rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--muted);">
+      <span class="check-dot" style="width:16px;height:16px;font-size:9px;"></span>
+      Compétence mise en œuvre
+    </div>
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.75rem;color:var(--muted);">
+      <span style="color:rgba(255,255,255,0.15);font-size:1rem;">—</span>
+      Non mobilisée sur cette réalisation
+    </div>
+  </div>
+
+</div>
 
 <!-- FOOTER -->
 <footer>
